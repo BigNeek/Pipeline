@@ -1,0 +1,36 @@
+<% include ./partials/header %>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <form class="form-inline" action="/pipeline" method="POST">
+              <div class="form-group">
+                <input type="text" class="form-control" name="requisition" placeholder="New Req">
+              </div>
+              <button type="submit" class="btn btn-primary">Enter</button>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+               
+              <ul class="nav nav-tabs" role="tablist">
+                <% user.requisitions.forEach(function(req) { %>
+                   <li role="presentation"><a href="#<%= req.role %>" aria-controls="<%= req.role %>" role="tab" data-toggle="tab"><%= req.role %></a></li> 
+                <% }) %>
+              </ul>
+            
+              
+              <div class="tab-content">
+                <% user.requisitions.forEach(function(req) { %>
+                    <div role="tabpanel" class="tab-pane" id="<%= req.role %>"><%= req.role %></div>
+                <% }) %>
+                <!--The issue is that in order for tab content to show, selected tab must have class of active. need to add class of "active" on click-->
+              </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<% include ./partials/footer %>
