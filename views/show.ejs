@@ -1,0 +1,40 @@
+<% include partials/header %>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1><%= req.role %></h1>
+            <form action="/reqs/<%= req._id %>?_method=DELETE" method="POST">
+                <button class="btn btn-danger">Delete REQ</button>
+            </form>
+            <table id="canTable" class="table">
+                <tr>
+                    <th>Name</th>
+                    <th>First Contact</th>
+                    <th>Second Contact</th>
+                    <th>Status</th>
+                </tr>
+                <% req.candidates.forEach(function(candidate) { %>
+                    <tr>
+                        <td contenteditable="true"><%= candidate.name %></td>
+                        <td>
+                            <input data-reqId="<%= req._id %>" data-canId="<%= candidate._id %>" type="checkbox" checked>
+                        </td>
+                        <td>
+                            <!--<form action="/reqs/req id should be here/candidates/<%= candidate._id %>?_method=DELETE" method="POST">-->
+                                <button class="btn btn-xs btn-danger removeCan" data-reqId="<%= req._id %>" data-canId="<%= candidate._id %>">X</button>
+                            <!--</form>-->
+                        </td>
+                    </tr>
+                <% }) %>
+                <!--<form action="/reqs/req._id should be here/candidates" method="POST">-->
+                    <input id="canName" type="text" name="name" placeholder="name">
+                    <button id="canBut" class="btn btn-xs btn-success btn-block" data-id="<%= req._id %>">Submit</button>
+                <!--</form>-->
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<% include partials/footer %>
