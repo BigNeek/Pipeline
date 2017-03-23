@@ -1,0 +1,282 @@
+/* /REQS PAGE */
+
+.reqDiv {
+    width: 200px;
+    height: 200px;
+    border: .05px solid white;
+    margin-top: 30px;
+}
+
+.reqDiv:hover {
+    background-color: #4169E1;
+    color: white;
+}
+
+.reqP {
+    text-align: center;
+    margin-top: 70px;
+}
+
+.response {
+    text-align: center;
+}
+
+.messaged {
+    text-align: center;
+}
+
+a, u {
+    text-decoration: none !important;
+}
+
+#makeNewReq {
+  display: inline;
+}
+
+
+
+#addReq {
+    display: inline-block;
+    width: 75px;
+}
+
+.indexContainer {
+    margin-top: 35px;
+}
+
+
+/* /SHOW PAGE */
+
+#canName {
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
+#canBut {
+    display: inline-block;
+    width: 100px;
+    margin-left: 20px;
+}
+
+#reqRole {
+    width: 300px;
+    margin-right: 0;
+    display: inline-block;
+    margin-bottom: 30px;
+}
+
+td {
+    text-align: center;
+}
+
+th {
+    text-align: center;
+}
+
+.showContainer {
+    margin-top: 30px;
+}
+
+
+/* /PROCESS PAGE */
+
+ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.processPanelHead {
+    background: steelblue !important;
+    color: white !important;
+}
+
+.processPanelBody {
+    height: 200px;
+    overflow: scroll;
+}
+
+.processSelect {
+    display: inline-block;
+    width: 290px;
+    float: right;
+    
+}
+
+.processName {
+    display: inline-block;
+}
+
+.panel-heading {
+    text-align: center;
+}
+
+#processSection {
+    margin-top: 30px;
+}
+
+.newProcessName {
+    margin-left: 4px;
+}
+
+
+/* LOGIN AND REGISTER */
+
+#loginDiv {
+    position: absolute;
+    margin: auto;
+    margin-top:300px;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 300px;
+    height: 300px;
+    border-radius: 3px;
+}
+
+#loginh1 {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 23px;
+}
+
+#loginForm {
+    width: 100%;
+}
+
+.loginTxt {
+    width: 100%;
+}
+
+.loginBut {
+}
+
+#buttonHolder {
+    text-align: center;
+}
+
+#aHolder {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.jumbotron {
+    text-align: center;
+    background: #eaf2ff;
+}
+
+.delReqBut {
+    float: right;
+}
+
+#registerDiv {
+    position: absolute;
+    margin: auto;
+    margin-top:325px;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 300px;
+    height: 300px;
+    border-radius: 3px;
+}
+
+#registerH1 {
+    text-align: center;
+}
+
+
+
+/* MEDIA QUERIES */
+
+@media (max-width: 450px) {
+  .reqDiv {
+      width:300px;
+      height:150px;
+      margin: auto;
+  }
+  #reqName {
+    width:150px !important;
+    margin-right: 10px;
+    display: inline-block;
+  }
+  #canTable {
+      font-size: smaller;
+  }
+  td {
+      padding: 4px !important;
+  }
+  .processSelect {
+      width: 150px;
+  }
+  .processPanelBody {
+      font-size: smaller;
+  }
+  ul {
+      padding: 0;
+  }
+  .processname {
+      max-width: 105px;
+  }
+}
+
+@media (min-width: 451px) {
+    #reqName {
+    width:250px !important;
+    display: inline-block;
+    margin-right: 20px;
+}
+}
+
+/* GENERAL */
+
+.navbar-default {
+    margin-bottom: 0px;
+    background: #2F4F4F;
+}
+
+/* title */
+.navbar-default .navbar-brand {
+    color: white;
+}
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus {
+    color: #cc1602;
+}
+/* link */
+.navbar-default .navbar-nav > li > a {
+    color: white;
+}
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+    color: #cc1602;
+}
+.navbar-default .navbar-nav > .active > a, 
+.navbar-default .navbar-nav > .active > a:hover, 
+.navbar-default .navbar-nav > .active > a:focus {
+    color: #555;
+    background-color: #E7E7E7;
+}
+.navbar-default .navbar-nav > .open > a, 
+.navbar-default .navbar-nav > .open > a:hover, 
+.navbar-default .navbar-nav > .open > a:focus {
+    color: #555;
+    background-color: #D5D5D5;
+}
+
+
+
+.alert-success {
+    text-align: center;
+}
+
+.alert-danger {
+    text-align: center;
+}
+
+
+
+
+
+

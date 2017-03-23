@@ -1,13 +1,15 @@
 var mongoose = require("mongoose");
 
-var RequisitionSchema = new mongoose.Schema({
+
+var requisitionSchema = new mongoose.Schema({
     role: String,
     candidates: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Candidate"
-        }
-    ]
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "Candidate"
+            }
+        ],
+    user: mongoose.SchemaTypes.ObjectId
 });
 
-module.exports = mongoose.model("Requisition", RequisitionSchema);
+module.exports = mongoose.model("Requisition", requisitionSchema);

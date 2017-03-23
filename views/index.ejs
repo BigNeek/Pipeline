@@ -1,31 +1,31 @@
 <% include partials/header %>
 
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <form class="form-inline" action="/reqs" method="POST">
-              <div class="form-group">
-                <input type="text" id="reqname" class="form-control" name="requisition" placeholder="New Req">
-              </div>
-              <button type="submit" id="addreq" class="btn btn-primary">Enter</button>
-            </form>
-        </div>
-    </div>
-    <div class="row">
+<div class="container indexContainer">
+    <section id="makeNewReq">
         <div class="container">
-            <div class="col-md-12">
-                <ul id="reqlist">
-                    <% user.requisitions.forEach(function(req) { %>
-                            <li><a href="/reqs/<%= req._id %>"><%= req.role %></a></li>
-                    <% }); %>
-                </ul>
+            <div class="row">
+                <div class="col-md-12">
+                    <input type="text" id="reqName" class="form-control" name="requisition" placeholder="New Req">
+                    <button type="submit" id="addReq" class="btn btn-primary btn-md" data-userid="<%= user._id %>">Enter</button>
+                </div>
             </div>
         </div>
-        
-    </div>
+    </section>
     
+    <hr>
     
+    <section id="listOfReqs">
+       <div class="container">
+            <div class="row reqRow">
+                <% user.requisitions.forEach(function(req) { %>
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                        <a href="/reqs/<%= req._id %>"><div class="reqDiv"><h4 class="reqP"><%= req.role %></h4><p class="messaged">Messaged: <%= req.candidates.length %></p><p class="response">Response rate: <%= (req.candidates.filter(function(obj) {return obj.response === "in process"}).length===0) ? "0%" : ((req.candidates.filter(function(obj) {return obj.response === "in process"}).length / req.candidates.length) * 100).toFixed(2) + "%" %></p></div></a>
+                    </div>
+                <% }); %>
+            </div>
+        </div> 
+    </section>
 </div>
 
 

@@ -1,4 +1,5 @@
 <% include ./partials/header %>
+
 <div class="container">
     <div class="row">
         <div class="col-md-12">
@@ -23,9 +24,32 @@
               
               <div class="tab-content">
                 <% user.requisitions.forEach(function(req) { %>
-                    <div role="tabpanel" class="tab-pane" id="<%= req.role %>"><%= req.role %></div>
+                    <div role="tabpanel" class="tab-pane" id="<%= req.role %>">
+                      <form class="form-inline">
+                        <div class="form-group">
+                          <label class="sr-only" for="exampleInputEmail3">Email address</label>
+                          <input type="email" class="form-control" id="exampleInputEmail3" placeholder="Email">
+                        </div>
+                        <div class="checkbox">
+                          <label>
+                            <input type="checkbox"> 1st Contact
+                          </label>
+                        </div>
+                        <div class="checkbox">
+                          <label>
+                            <input type="checkbox"> 2nd Contact
+                          </label>
+                        </div>
+                        <select>
+                          <option value="volvo">Volvo</option>
+                          <option value="saab">Saab</option>
+                          <option value="mercedes">Mercedes</option>
+                          <option value="audi">Audi</option>
+                        </select>
+                        <button type="submit" class="btn btn-default">Add</button>
+                      </form>
+                    </div>
                 <% }) %>
-                <!--The issue is that in order for tab content to show, selected tab must have class of active. need to add class of "active" on click-->
               </div>
             </div>
         </div>
