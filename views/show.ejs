@@ -4,7 +4,13 @@
 <div class="container showContainer">
     <div class="row">
         <div class="col-md-12">
-          <button data-reqid="<%= req._id %>" class="btn btn-danger btn-xs delReqBut">Delete REQ</button>
+          <% if(req.archive === "false") { %>
+              <button data-reqid="<%= req._id %>" class="btn btn-warning btn-xs archiveReqBut">Archive Req</button>
+          <% } else { %>
+              <button data-reqid="<%= req._id %>" class="btn btn-info btn-xs restoreReqBut">Restore Req</button>
+          <% } %>
+          
+          <button data-reqid="<%= req._id %>" class="btn btn-danger btn-xs delReqBut">Delete Req</button>
           <h1 contenteditable="true" id="reqRole" data-reqid="<%= req._id %>"><%= req.role %></h1>
         </div>
     </div>

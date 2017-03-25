@@ -8,8 +8,7 @@
 }
 
 .reqDiv:hover {
-    background-color: #4169E1;
-    color: white;
+    background-color: #eaf2ff;
 }
 
 .reqP {
@@ -59,7 +58,7 @@ a, u {
 }
 
 #reqRole {
-    width: 300px;
+    width: 400px;
     margin-right: 0;
     display: inline-block;
     margin-bottom: 30px;
@@ -118,6 +117,39 @@ ul {
     margin-left: 4px;
 }
 
+.delReqBut {
+    float: right;
+}
+
+.archiveReqBut {
+    float: right;
+    margin-left: 5px;
+}
+
+.restoreReqBut {
+    float: right;
+    margin-left: 5px;
+}
+
+/* ARCHIVE */
+
+.archiveDiv {
+    color: #ec971f;
+    width: 200px;
+    height: 200px;
+    border: .05px solid white;
+    margin-top: 30px;
+}
+
+.archiveDiv:hover {
+    background: #ec971f;
+    color: white;
+}
+
+#archiveH1 {
+    text-align: center;
+}
+
 
 /* LOGIN AND REGISTER */
 
@@ -165,10 +197,6 @@ ul {
     background: #eaf2ff;
 }
 
-.delReqBut {
-    float: right;
-}
-
 #registerDiv {
     position: absolute;
     margin: auto;
@@ -203,6 +231,9 @@ ul {
   }
   #canTable {
       font-size: smaller;
+  }
+  #reqRole {
+      width: 300px;
   }
   td {
       padding: 4px !important;
@@ -269,10 +300,12 @@ ul {
 
 .alert-success {
     text-align: center;
+    margin-top: 20px;
 }
 
 .alert-danger {
     text-align: center;
+    margin-top: 20px;
 }
 
 

@@ -9,7 +9,8 @@ var requisitionSchema = new mongoose.Schema({
                 ref: "Candidate"
             }
         ],
-    user: mongoose.SchemaTypes.ObjectId
+    user: mongoose.SchemaTypes.ObjectId,
+    archive: String
 });
 
 module.exports = mongoose.model("Requisition", requisitionSchema);

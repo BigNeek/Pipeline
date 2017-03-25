@@ -20,7 +20,7 @@ router.post("/register", function(req, res) {
            return res.render("register");
        }
        passport.authenticate("local")(req, res, function() {
-            req.flash("success", "Welcome to Pipeline, " + user.username + ". Add a requisition and start tracking your candidates!");
+            req.flash("success", "Welcome to Pipeline! Add a requisition and start tracking your candidates.");
             res.redirect("/reqs");
        })
    }); 

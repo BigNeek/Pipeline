@@ -13,11 +13,13 @@ var express = require("express"),
 var indexRoutes = require("./routes/index"),
     reqRoutes = require("./routes/reqs"),
     candidateRoutes = require("./routes/candidates"),
-    processRoutes = require("./routes/process");
+    processRoutes = require("./routes/process"),
+    archiveRoutes = require("./routes/archive");
     
 var url = process.env.DATABASEURL || "mongodb://localhost/pipeline"
     
 mongoose.connect(url);
+
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
@@ -52,6 +54,7 @@ app.use(indexRoutes);
 app.use(candidateRoutes);
 app.use(reqRoutes);
 app.use(processRoutes);
+app.use(archiveRoutes);
 
 app.listen(process.env.PORT, process.env.IP, function() {
     console.log("We're online!!!")

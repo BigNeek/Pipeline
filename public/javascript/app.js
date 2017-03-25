@@ -18,12 +18,14 @@ var $reqRole = $("#reqRole");
 var $delReqBut = $(".delReqBut");
 var $candidateNote = $(".candidateNote");
 var $processPanelBody = $(".processPanelBody");
+var $archiveReqBut = $(".archiveReqBut");
+var $restoreReqBut = $(".restoreReqBut");
 
 
 $(function(){
     // ADD NEW REQ CLICK EVENT
     $addReq.click(function() {
-        var role = {role: $reqName.val(), user: $(this).attr('data-userid')};
+        var role = {role: $reqName.val(), user: $(this).attr('data-userid'), archive: "false"};
         $reqName.val("");
         $.ajax({
             type: "POST",
@@ -34,6 +36,7 @@ $(function(){
             }
         });
     });
+    
     // ADD NEW REQ ENTER EVENT
     $reqName.keypress(function(e) {
         if(e.which === 13) {
@@ -144,7 +147,7 @@ $(function(){
     // DELETE REQ
     
     $delReqBut.on("click", function() {
-        var answer = confirm("Are you sure you want to delete?")
+        var answer = confirm("Are you sure you want to delete?");
         if(answer) {
             $.ajax({
                 type: "DELETE",
@@ -153,6 +156,34 @@ $(function(){
                     window.location.href = "/reqs"
                 }
             });
+        }
+    });
+    
+    $archiveReqBut.on("click", function() {
+        var answer = confirm("Are you sure you want to archive this req?");
+        if(answer) {
+            $.ajax({
+                type: "PUT",
+                url: "/reqs/" + $(this).attr('data-reqid'),
+                data: {archive: "true"},
+                success: function() {
+                    window.location.href = "/reqs"
+                }
+            });
+        }
+    });
+    
+    $restoreReqBut.on("click", function() {
+        var answer = confirm("Are you sure you want to restore this req?");
+        if(answer) {
+            $.ajax({
+                type: "PUT",
+                url: "/reqs/" + $(this).attr("data-reqid"),
+                data: {archive: "false"},
+                success: function() {
+                    window.location.href = "/reqs"
+                }
+            })
         }
     });
     

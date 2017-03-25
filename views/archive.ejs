@@ -1,0 +1,25 @@
+<% include partials/header %>
+
+
+
+<div class="container indexContainer">
+    <h1 id="archiveH1">Archive</h1>
+    <hr>
+    <section id="listOfReqs">
+           <div class="container">
+                <div class="row reqRow">
+                    <% user.requisitions.forEach(function(req) { %>
+                        <% if(req.archive === "true") { %>
+                            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                            <a href="/reqs/<%= req._id %>"><div class="archiveDiv"><h4 class="reqP"><%= req.role %></h4><p class="messaged">Messaged: <%= req.candidates.length %></p><p class="response">Response rate: <%= (req.candidates.filter(function(obj) {return obj.response === "in process"}).length===0) ? "0%" : ((req.candidates.filter(function(obj) {return obj.response === "in process"}).length / req.candidates.length) * 100).toFixed(2) + "%" %></p></div></a>
+                            </div>
+                        <% } %>
+                    <% }); %>
+                </div>
+            </div> 
+    </section>
+</div>
+
+
+
+<% include partials/footer %>
