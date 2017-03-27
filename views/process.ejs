@@ -10,6 +10,7 @@
                         <div data-reqid="<%= requisition._id %>" class="panel-body processPanelBody">
                           <% requisition.candidates.forEach(function(candidate) { %>
                               <% if(candidate.response === "in process") { %>
+                                    <div class="candidateProcessDiv">
                                       <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#candidateModall<%= candidate._id %>" data-whatever="@mdo"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
                                       <div class="modal fade" id="candidateModall<%= candidate._id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
                                         <div class="modal-dialog" role="document">
@@ -30,7 +31,7 @@
                                       </div>
                                     
                                       
-                                      <p class="processName"><%= candidate.name %></p>
+                                      <p <%= candidate.process === "11" ? "style=color:#d8242a;" : " " %> class="processName"><%= candidate.name %></p>
                                       <select data-reqid="<%= requisition._id %>" data-canid="<%= candidate._id %>" class="processSelect">
                                           <option value="">--- Select ---</option>
                                           <option <%= candidate.process === "1" ? "selected" : "" %> value="1">Waiting on resume/availability</option>
@@ -41,10 +42,12 @@
                                           <option <%= candidate.process === "6" ? "selected" : "" %> value="6">Waiting on availability for onsite</option>
                                           <option <%= candidate.process === "7" ? "selected" : "" %> value="7">Working on scheduling for onsite</option>
                                           <option <%= candidate.process === "8" ? "selected" : "" %> value="8">Scheduled for Onsite</option>
-                                          <option <%= candidate.process === "8" ? "selected" : "" %> value="9">Waiting on feedback</option>
-                                          <option <%= candidate.process === "9" ? "selected" : "" %> value="10">Extended Offer</option>
-                                          <option <%= candidate.process === "10" ? "selected" : "" %> value="11">No Bueno</option>
+                                          <option <%= candidate.process === "9" ? "selected" : "" %> value="9">Waiting on feedback</option>
+                                          <option <%= candidate.process === "10" ? "selected" : "" %> value="10">Extended Offer</option>
+                                          <option <%= candidate.process === "11" ? "selected" : "" %> value="11">Out of Process</option>
                                       </select>
+                                    </div>
+                                      
                                   <br>
                               <% } %>
                           <% }); %>

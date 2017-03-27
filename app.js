@@ -8,7 +8,10 @@ var express = require("express"),
     User = require("./models/user"),
     Requisition = require("./models/requisition"),
     methodOverride = require("method-override"),
-    Candidate = require("./models/candidate");
+    Candidate = require("./models/candidate"),
+    crypto = require("crypto"),
+    asink = require("async"),
+    nodemailer = require("nodemailer");
     
 var indexRoutes = require("./routes/index"),
     reqRoutes = require("./routes/reqs"),

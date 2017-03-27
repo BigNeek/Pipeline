@@ -241,7 +241,7 @@ $(function(){
             url: "/reqs/" + $(this).attr('data-reqid') + "/candidates/",
             data: data,
             success: function(newCan) {
-                $canTxt.prev().append("<li><button type='button' class='btn btn-info btn-xs' data-toggle='modal' data-target='#candidateModall" + newCan._id + "' data-whatever='@mdo'><i class='fa fa-pencil-square-o' aria-hidden='true'></i></button><div class='modal fade' id='candidateModall" + newCan._id + "' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel'><div class='modal-dialog' role='document'><div class='modal-content'><div class='modal-header'><button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button><h4 class='modal-title' id='exampleModalLabel'>Notes on Candidate</h4></div><div class='modal-body'><form><div class='form-group'><textarea data-reqid='" + $canTxt.attr('data-reqid') + "' data-canid='" + newCan._id + "' class='form-control candidateNote' id='message-text'></textarea></div></form></div></div></div></div><p class='processName newProcessName'>" + newCan.name + "</p><select data-reqid='" + $canTxt.attr('data-reqid') + "'data-canid='" + newCan._id + "'class='processSelect'><option value=''>--- Select ---</option><option value='1'>Waiting on resume/availability</option><option value='2'>Scheduled for Phone screen</option><option value='3'>Waiting on response from Hiring Manager</option><option value='4'>Scheduled to speak with Hiring Manager</option><option value='5'>Waiting on resume/availability for onsite</option><option value='6'>Scheduled for Onsite</option><option value='7'>Extended Offer</option></select></li>");
+                $canTxt.prev().append("<li><button type='button' class='btn btn-info btn-xs' data-toggle='modal' data-target='#candidateModall" + newCan._id + "' data-whatever='@mdo'><i class='fa fa-pencil-square-o' aria-hidden='true'></i></button><div class='modal fade' id='candidateModall" + newCan._id + "' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel'><div class='modal-dialog' role='document'><div class='modal-content'><div class='modal-header'><button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button><h4 class='modal-title' id='exampleModalLabel'>Notes on Candidate</h4></div><div class='modal-body'><form><div class='form-group'><textarea data-reqid='" + $canTxt.attr('data-reqid') + "' data-canid='" + newCan._id + "' class='form-control candidateNote' id='message-text'></textarea></div></form></div></div></div></div><p class='processName newProcessName'>" + newCan.name + "</p><select data-reqid='" + $canTxt.attr('data-reqid') + "'data-canid='" + newCan._id + "'class='processSelect'><option value=''>--- Select ---</option><option value='1'>Waiting on resume/availability</option><option value='2'>Scheduled for Phone screen</option><option value='3'>Sent technical test/questionnaire</option><option value='4'>Waiting on response from Hiring Manager</option><option value='5'>Scheduled to speak with Hiring Manager</option><option value='6'>Waiting on availability for onsite</option><option value='7'>Working on scheduling for onsite</option><option value='8'>Scheduled for Onsite</option><option value='9'>Waiting on feedback</option><option value='10'>Extended Offer</option><option value='11'>No Bueno</option></select></li>");
             }
         });
        }  
@@ -272,6 +272,15 @@ $(function(){
             success: function(updatedNote) {
             }
         });
+    });
+    
+    $(".processPanelBody").delegate(".processSelect", "change", function() {
+        
+        if($(this).val() === "11") {
+             $(this).prev("p").css("color", "#d8242a");
+        } else {
+             $(this).prev("p").css("color", "black");
+        }
     });
 });
 

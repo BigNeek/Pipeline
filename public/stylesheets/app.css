@@ -92,6 +92,7 @@ ul {
 .processPanelBody {
     height: 200px;
     overflow: scroll;
+    line-height: .8;
 }
 
 .processSelect {
@@ -131,6 +132,9 @@ ul {
     margin-left: 5px;
 }
 
+.candidateProcessDiv {
+
+}
 /* ARCHIVE */
 
 .archiveDiv {
@@ -142,7 +146,7 @@ ul {
 }
 
 .archiveDiv:hover {
-    background: #ec971f;
+    background: #f3e284;
     color: white;
 }
 
@@ -154,9 +158,8 @@ ul {
 /* LOGIN AND REGISTER */
 
 #loginDiv {
-    position: absolute;
+    position: relative;
     margin: auto;
-    margin-top:300px;
     top: 0;
     right: 0;
     bottom: 0;
@@ -198,9 +201,8 @@ ul {
 }
 
 #registerDiv {
-    position: absolute;
+    position: relative;
     margin: auto;
-    margin-top:325px;
     top: 0;
     right: 0;
     bottom: 0;
@@ -249,6 +251,10 @@ ul {
   }
   .processname {
       max-width: 105px;
+      font-size: 10px;
+  }
+  .newProcessName {
+      font-size: 10px;
   }
 }
 
@@ -308,8 +314,12 @@ ul {
     margin-top: 20px;
 }
 
+input {
+    padding-left: 5px;
+}
 
-
-
+[contenteditable]:focus {
+    outline: 0px solid transparent;
+}
 
 

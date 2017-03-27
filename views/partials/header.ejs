@@ -29,9 +29,11 @@
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li><a href="/reqs">Reqs</a></li>
-                    <li><a href="/process">In Process</a></li>
-                    <li><a href="/archive">Archive</a></li>
+                    <% if(currentUser) { %>
+                        <li><a href="/reqs">Reqs</a></li>
+                        <li><a href="/process">In Process</a></li>
+                        <li><a href="/archive">Archive</a></li>
+                    <% } %>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <% if(!currentUser) { %>

@@ -87,7 +87,7 @@ router.delete("/reqs/:id", middleware.isLoggedIn, function(req, res) {
                     }
                 }
             );
-            req.flash("error", "Req deleted");
+            req.flash("error", "Req deleted.");
             res.send(deleted);
         }
     });

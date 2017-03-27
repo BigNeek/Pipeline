@@ -1,0 +1,29 @@
+<% include ./partials/header %>
+
+<div class="jumbotron">
+  <h1>Forgot your password?</h1>
+  <p>Enter the email associated with your account to reset it.</p>
+</div>
+
+
+<div id="loginDiv">
+    <h1 id="loginh1">Email Reset</h1>
+    <hr>
+    <form action="/forgot" method="POST" id="loginForm">
+        <div class="form-group">
+            <input class="loginTxt" type="email" name="email" placeholder="Email">
+        </div>
+        <div id="buttonHolder">
+            <button class="btn btn-primary btn-lg">Send</button>
+        </div>
+        <div id="aHolder">
+            <a href="/register">Sign Up</a>
+        </div>
+    </form>
+</div>
+
+
+
+
+
+<% include ./partials/footer %>
