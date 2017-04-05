@@ -44,6 +44,8 @@ a, u {
 }
 
 
+
+
 /* /SHOW PAGE */
 
 #canName {
@@ -76,13 +78,12 @@ th {
     margin-top: 30px;
 }
 
+input[type='checkbox']:focus {
+    outline: 0px solid transparent;
+}
+
 
 /* /PROCESS PAGE */
-
-ul {
-    list-style: none;
-    padding-left: 0;
-}
 
 .processPanelHead {
     background: steelblue !important;
@@ -90,7 +91,7 @@ ul {
 }
 
 .processPanelBody {
-    height: 200px;
+    height: 250px;
     overflow: scroll;
     line-height: .8;
 }
@@ -132,9 +133,38 @@ ul {
     margin-left: 5px;
 }
 
-.candidateProcessDiv {
-
+.inProcessH4 {
+    margin-top: 0;
+    margin-bottom: 0;
 }
+
+.inProcessHr {
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.outOfProcessH4 {
+    margin-top: 20px;
+    margin-bottom: 0;
+}
+
+.candidateProcessDiv {
+    line-height: .8;
+}
+
+.processCanText {
+    margin-top: 10px;
+}
+
+.processReqH4 {
+    display: inline-block;
+}
+
+.processReqA {
+    float: right;
+    color: white;
+}
+
 /* ARCHIVE */
 
 .archiveDiv {
@@ -246,9 +276,6 @@ ul {
   .processPanelBody {
       font-size: smaller;
   }
-  ul {
-      padding: 0;
-  }
   .processname {
       max-width: 105px;
       font-size: 10px;
@@ -322,4 +349,29 @@ input {
     outline: 0px solid transparent;
 }
 
+#todoUl {
+    list-style: none;
+    padding-left: 0;
+}
 
+li {
+    list-style-position: outside;
+}
+
+#todoUl {
+    margin-left: 15px;
+    line-height: 1.9em;
+    list-style: square;
+}
+
+.todoLi:hover {
+    color: red;
+}
+
+#myModalLabel {
+    text-align: center;
+}
+
+a:focus {
+    outline: 0px solid transparent;
+}

@@ -6,54 +6,102 @@
                 <% if(requisition.archive === "false") { %>
                   <div class="col-md-6">
                       <div class="panel panel-default processPanel">
-                        <div class="panel-heading processPanelHead"><h4><%= requisition.role %></h4></div>
+                        <div class="panel-heading processPanelHead"><h4 class="processReqH4"><%= requisition.role %></h4><a class="btn btn-success btn-xs processReqA" href="/reqs/<%= requisition._id %>">Req Page</a></div>
                         <div data-reqid="<%= requisition._id %>" class="panel-body processPanelBody">
-                          <% requisition.candidates.forEach(function(candidate) { %>
-                              <% if(candidate.response === "in process") { %>
-                                    <div class="candidateProcessDiv">
-                                      <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#candidateModall<%= candidate._id %>" data-whatever="@mdo"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-                                      <div class="modal fade" id="candidateModall<%= candidate._id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-                                        <div class="modal-dialog" role="document">
-                                          <div class="modal-content">
-                                            <div class="modal-header">
-                                              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                              <h4 class="modal-title" id="exampleModalLabel">Notes on Candidate</h4>
-                                            </div>
-                                            <div class="modal-body">
-                                              <form>
-                                                <div class="form-group">
-                                                  <textarea data-reqid="<%= requisition._id %>" data-canid="<%= candidate._id %>" class="form-control candidateNote" id="message-text"><%= candidate.note %></textarea>
-                                                </div>
-                                              </form>
+                          <div class="inProcessDiv<%= requisition._id %>">
+                            <h4 class="inProcessH4">In Process</h4>
+                            <hr class="inProcessHr">
+                            <% requisition.candidates.forEach(function(candidate) { %>
+                                <% if(candidate.response === "in process" && candidate.process !== "11") { %>
+                                      <div class="candidateProcessDiv">
+                                        <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#candidateModall<%= candidate._id %>" data-whatever="@mdo"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+                                        <div class="modal fade" id="candidateModall<%= candidate._id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+                                          <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                              <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                <h4 class="modal-title" id="exampleModalLabel">Notes on Candidate</h4>
+                                              </div>
+                                              <div class="modal-body">
+                                                <form>
+                                                  <div class="form-group">
+                                                    <textarea data-reqid="<%= requisition._id %>" data-canid="<%= candidate._id %>" class="form-control candidateNote" id="message-text"><%= candidate.note %></textarea>
+                                                  </div>
+                                                </form>
+                                              </div>
                                             </div>
                                           </div>
                                         </div>
+                                      
+                                        <p <%= candidate.process === "11" ? "style=color:#d8242a;" : " " %> class="processName"><%= candidate.name %></p>
+                                        <select data-reqid="<%= requisition._id %>" data-canid="<%= candidate._id %>" class="processSelect">
+                                            <option value="">--- Select ---</option>
+                                            <option <%= candidate.process === "1" ? "selected" : "" %> value="1">Waiting on resume/availability</option>
+                                            <option <%= candidate.process === "2" ? "selected" : "" %> value="2">Scheduled for Phone screen</option>
+                                            <option <%= candidate.process === "3" ? "selected" : "" %> value="3">Sent technical test/questionnaire</option>
+                                            <option <%= candidate.process === "4" ? "selected" : "" %> value="4">Waiting on response from Hiring Manager</option>
+                                            <option <%= candidate.process === "5" ? "selected" : "" %> value="5">Scheduled to speak with Hiring Manager</option>
+                                            <option <%= candidate.process === "6" ? "selected" : "" %> value="6">Waiting on availability for onsite</option>
+                                            <option <%= candidate.process === "7" ? "selected" : "" %> value="7">Working on scheduling for onsite</option>
+                                            <option <%= candidate.process === "8" ? "selected" : "" %> value="8">Scheduled for Onsite</option>
+                                            <option <%= candidate.process === "9" ? "selected" : "" %> value="9">Waiting on feedback</option>
+                                            <option <%= candidate.process === "10" ? "selected" : "" %> value="10">Extended Offer</option>
+                                            <option <%= candidate.process === "11" ? "selected" : "" %> value="11">Out of Process</option>
+                                        </select>
                                       </div>
+                                      
                                     
-                                      
-                                      <p <%= candidate.process === "11" ? "style=color:#d8242a;" : " " %> class="processName"><%= candidate.name %></p>
-                                      <select data-reqid="<%= requisition._id %>" data-canid="<%= candidate._id %>" class="processSelect">
-                                          <option value="">--- Select ---</option>
-                                          <option <%= candidate.process === "1" ? "selected" : "" %> value="1">Waiting on resume/availability</option>
-                                          <option <%= candidate.process === "2" ? "selected" : "" %> value="2">Scheduled for Phone screen</option>
-                                          <option <%= candidate.process === "3" ? "selected" : "" %> value="3">Sent technical test/questionnaire</option>
-                                          <option <%= candidate.process === "4" ? "selected" : "" %> value="4">Waiting on response from Hiring Manager</option>
-                                          <option <%= candidate.process === "5" ? "selected" : "" %> value="5">Scheduled to speak with Hiring Manager</option>
-                                          <option <%= candidate.process === "6" ? "selected" : "" %> value="6">Waiting on availability for onsite</option>
-                                          <option <%= candidate.process === "7" ? "selected" : "" %> value="7">Working on scheduling for onsite</option>
-                                          <option <%= candidate.process === "8" ? "selected" : "" %> value="8">Scheduled for Onsite</option>
-                                          <option <%= candidate.process === "9" ? "selected" : "" %> value="9">Waiting on feedback</option>
-                                          <option <%= candidate.process === "10" ? "selected" : "" %> value="10">Extended Offer</option>
-                                          <option <%= candidate.process === "11" ? "selected" : "" %> value="11">Out of Process</option>
-                                      </select>
-                                    </div>
-                                      
-                                  <br>
-                              <% } %>
-                          <% }); %>
-                          <ul class="newCan"></ul>
+                                <% } %>
+                            <% }); %>
+                          </div>
                           <input data-reqid="<%= requisition._id %>" class="processCanText"type='textbox' placeholder="New Candidate">
-                          <a href="/reqs/<%= requisition._id %>">Req Page</a>
+                          
+                          
+                          <div class="outOfProcessDiv<%= requisition._id %> outOfProcessDiv">
+                            <h4 class="outOfProcessH4">Out of Process</h4>
+                            <hr class="inProcessHr">
+                            <% requisition.candidates.forEach(function(candidate) { %>
+                              <% if(candidate.process === "11") { %>
+                                <div class="candidateProcessDiv">
+                                        <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#candidateModall<%= candidate._id %>" data-whatever="@mdo"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+                                        <div class="modal fade" id="candidateModall<%= candidate._id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+                                          <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                              <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                <h4 class="modal-title" id="exampleModalLabel">Notes on Candidate</h4>
+                                              </div>
+                                              <div class="modal-body">
+                                                <form>
+                                                  <div class="form-group">
+                                                    <textarea data-reqid="<%= requisition._id %>" data-canid="<%= candidate._id %>" class="form-control candidateNote" id="message-text"><%= candidate.note %></textarea>
+                                                  </div>
+                                                </form>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      
+                                        <p <%= candidate.process === "11" ? "style=color:#d8242a;" : " " %> class="processName"><%= candidate.name %></p>
+                                        <select data-reqid="<%= requisition._id %>" data-canid="<%= candidate._id %>" class="processSelect outOfProcessSelect">
+                                            <option value="">--- Select ---</option>
+                                            <option <%= candidate.process === "1" ? "selected" : "" %> value="1">Waiting on resume/availability</option>
+                                            <option <%= candidate.process === "2" ? "selected" : "" %> value="2">Scheduled for Phone screen</option>
+                                            <option <%= candidate.process === "3" ? "selected" : "" %> value="3">Sent technical test/questionnaire</option>
+                                            <option <%= candidate.process === "4" ? "selected" : "" %> value="4">Waiting on response from Hiring Manager</option>
+                                            <option <%= candidate.process === "5" ? "selected" : "" %> value="5">Scheduled to speak with Hiring Manager</option>
+                                            <option <%= candidate.process === "6" ? "selected" : "" %> value="6">Waiting on availability for onsite</option>
+                                            <option <%= candidate.process === "7" ? "selected" : "" %> value="7">Working on scheduling for onsite</option>
+                                            <option <%= candidate.process === "8" ? "selected" : "" %> value="8">Scheduled for Onsite</option>
+                                            <option <%= candidate.process === "9" ? "selected" : "" %> value="9">Waiting on feedback</option>
+                                            <option <%= candidate.process === "10" ? "selected" : "" %> value="10">Extended Offer</option>
+                                            <option <%= candidate.process === "11" ? "selected" : "" %> value="11">Out of Process</option>
+                                        </select>
+                                      </div>
+                          
+                            <% } %>
+                          <% }); %>
+                          </div>
                         </div>
                       </div>
                   </div>

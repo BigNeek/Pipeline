@@ -33,6 +33,7 @@
                         <li><a href="/reqs">Reqs</a></li>
                         <li><a href="/process">In Process</a></li>
                         <li><a href="/archive">Archive</a></li>
+                        <li><a href="#" data-toggle="modal" data-target="#myModal">Todo</a></li>
                     <% } %>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
@@ -56,4 +57,26 @@
             <div class="alert alert-success" role="alert"><%= success %></div>
         <% } %>
     </div>
-        
+    
+    <% if(currentUser) { %>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Todo List</h4>
+          </div>
+          <div class="modal-body">
+            <ul id="todoUl">
+                <% user.todos.forEach(function(todo) { %>
+                    <li class="todoLi" data-todoid="<%= todo._id %>"><%= todo.todo %></li>
+                <% }); %>
+            </ul>
+            <div class="form-group">
+                <input type="text" class="form-control" id="todoInput" placeholder="Enter todo">
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% } %>

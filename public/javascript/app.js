@@ -20,6 +20,9 @@ var $candidateNote = $(".candidateNote");
 var $processPanelBody = $(".processPanelBody");
 var $archiveReqBut = $(".archiveReqBut");
 var $restoreReqBut = $(".restoreReqBut");
+var $todoInput = $("#todoInput");
+var $todoUl = $("#todoUl");
+var $todoX = $(".todoX");
 
 
 $(function(){
@@ -159,6 +162,7 @@ $(function(){
         }
     });
     
+    // CHANGES CANDIDATE.ARCHIVE TO TRUE AND REDIRECTS TO /REQS
     $archiveReqBut.on("click", function() {
         var answer = confirm("Are you sure you want to archive this req?");
         if(answer) {
@@ -173,6 +177,7 @@ $(function(){
         }
     });
     
+    // CHANGES CANDIDATE.ARCHIVE TO FALSE AND REDIRECTS TO /REQS
     $restoreReqBut.on("click", function() {
         var answer = confirm("Are you sure you want to restore this req?");
         if(answer) {
@@ -189,7 +194,7 @@ $(function(){
     
     // DROPDOWN EDIT EVENT
     $canTable.delegate(".dropdown", "change", function() {
-        var drop = {response: $(this).val()}
+        var drop = {response: $(this).val(), process: "1"}
         
         $.ajax({
             type: "PUT",
@@ -216,15 +221,30 @@ $(function(){
     
     
     // IN PROCESS DROPDOWN EDIT EVENT
-    $processSelect.change(function() {
+    $(".processPanelBody").delegate(".processSelect", "change", function() {
         var drop = {process: $(this).val()}
+        var $this = $(this);
+        var outOfProcessDiv = ".outOfProcessDiv" + $(this).attr("data-reqid");
+        var inProcessDiv = ".inProcessDiv" + $(this).attr("data-reqid");
         
         $.ajax({
             type: "PUT",
             url: "/reqs/" + $(this).attr('data-reqid') + "/candidates/" + $(this).attr('data-canid'),
             data: drop,
-            success: function(updatedProcess) {
-                
+            context: this,
+            success: function(updatedCan) {
+                  if($this.val() === "11") {
+                // IF USER SELECTED "OUT OF PROCESS" THEN IT WILL DELETE CLOSEST DIV AND APPEND CANDIDATE TO OUT OF PROCESS SECTION
+                    $this.closest("div").remove();
+                    $(outOfProcessDiv).append("<div class='candidateProcessDiv'><button type='button' class='btn btn-info btn-xs' data-toggle='modal' data-target='#candidateModall" + updatedCan._id + "' data-whatever='@mdo'><i class='fa fa-pencil-square-o' aria-hidden='true'></i></button><div class='modal fade' id='candidateModall" + updatedCan._id + "' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel'><div class='modal-dialog' role='document'><div class='modal-content'><div class='modal-header'><button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button><h4 class='modal-title' id='exampleModalLabel'>Notes on Candidate</h4></div><div class='modal-body'><form><div class='form-group'><textarea data-reqid='" + updatedCan.requisition + "' data-canid='" + updatedCan._id + "' class='form-control candidateNote' id='message-text'></textarea></div></form></div></div></div></div><p style='color:#d8242a' class='processName newProcessName'>" + updatedCan.name + "</p><select data-reqid='" + updatedCan.requisition + "' data-canid='" + updatedCan._id + "' class='processSelect outOfProcessSelect'><option value=''>--- Select ---</option><option value='1'>Waiting on resume/availability</option><option value='2'>Scheduled for Phone screen</option><option value='3'>Sent technical test/questionnaire</option><option value='4'>Waiting on response from Hiring Manager</option><option value='5'>Scheduled to speak with Hiring Manager</option><option value='6'>Waiting on availability for onsite</option><option value='7'>Working on scheduling for onsite</option><option value='8'>Scheduled for Onsite</option><option value='9'>Waiting on feedback</option><option value='10'>Extended Offer</option><option value='11' selected>Out of Process</option></select></div>");
+                  } else if($this.hasClass("outOfProcessSelect") && $this.val() !== "11") {
+                    // IF A USER SELECTS ANYTHING OTHER THAN "OUT OF PROCESS" AND IT IS A CHILD OF OUTOFPROCESSDIV THEN IT WILL DELETE CLOSEST DIV AND APPEND TO IN PROCESS SECTION
+                    $this.closest("div").remove();
+                    $(inProcessDiv).append("<div class='candidateProcessDiv'><button type='button' class='btn btn-info btn-xs' data-toggle='modal' data-target='#candidateModall" + updatedCan._id + "' data-whatever='@mdo'><i class='fa fa-pencil-square-o' aria-hidden='true'></i></button><div class='modal fade' id='candidateModall" + updatedCan._id + "' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel'><div class='modal-dialog' role='document'><div class='modal-content'><div class='modal-header'><button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button><h4 class='modal-title' id='exampleModalLabel'>Notes on Candidate</h4></div><div class='modal-body'><form><div class='form-group'><textarea data-reqid='" + updatedCan.requisition + "' data-canid='" + updatedCan._id + "' class='form-control candidateNote' id='message-text'></textarea></div></form></div></div></div></div><p class='processName newProcessName'>" + updatedCan.name + "</p><select data-reqid='" + updatedCan.requisition + "' data-canid='" + updatedCan._id + "'class='processSelect'><option value=''>Back in Process</option><option value='1'>Waiting on resume/availability</option><option value='2'>Scheduled for Phone screen</option><option value='3'>Sent technical test/questionnaire</option><option value='4'>Waiting on response from Hiring Manager</option><option value='5'>Scheduled to speak with Hiring Manager</option><option value='6'>Waiting on availability for onsite</option><option value='7'>Working on scheduling for onsite</option><option value='8'>Scheduled for Onsite</option><option value='9'>Waiting on feedback</option><option value='10'>Extended Offer</option><option value='11'>Out of Process</option></select></div>");
+                  }
+                  },
+            error: function(result) {
+                alert("something went wrong!");
             }
         });
     });
@@ -235,35 +255,21 @@ $(function(){
         var data = {name: $(this).val(), response: "in process", requisition: $(this).attr('data-reqid')};
         $processCanText.val("");
         var $canTxt = $(this);
+        var inProcessDiv = ".inProcessDiv" + $(this).attr("data-reqid");
         
         $.ajax({
             type: "POST",
             url: "/reqs/" + $(this).attr('data-reqid') + "/candidates/",
             data: data,
             success: function(newCan) {
-                $canTxt.prev().append("<li><button type='button' class='btn btn-info btn-xs' data-toggle='modal' data-target='#candidateModall" + newCan._id + "' data-whatever='@mdo'><i class='fa fa-pencil-square-o' aria-hidden='true'></i></button><div class='modal fade' id='candidateModall" + newCan._id + "' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel'><div class='modal-dialog' role='document'><div class='modal-content'><div class='modal-header'><button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button><h4 class='modal-title' id='exampleModalLabel'>Notes on Candidate</h4></div><div class='modal-body'><form><div class='form-group'><textarea data-reqid='" + $canTxt.attr('data-reqid') + "' data-canid='" + newCan._id + "' class='form-control candidateNote' id='message-text'></textarea></div></form></div></div></div></div><p class='processName newProcessName'>" + newCan.name + "</p><select data-reqid='" + $canTxt.attr('data-reqid') + "'data-canid='" + newCan._id + "'class='processSelect'><option value=''>--- Select ---</option><option value='1'>Waiting on resume/availability</option><option value='2'>Scheduled for Phone screen</option><option value='3'>Sent technical test/questionnaire</option><option value='4'>Waiting on response from Hiring Manager</option><option value='5'>Scheduled to speak with Hiring Manager</option><option value='6'>Waiting on availability for onsite</option><option value='7'>Working on scheduling for onsite</option><option value='8'>Scheduled for Onsite</option><option value='9'>Waiting on feedback</option><option value='10'>Extended Offer</option><option value='11'>No Bueno</option></select></li>");
+                $(inProcessDiv).append("<div class='candidateProcessDiv'><button type='button' class='btn btn-info btn-xs' data-toggle='modal' data-target='#candidateModall" + newCan._id + "' data-whatever='@mdo'><i class='fa fa-pencil-square-o' aria-hidden='true'></i></button><div class='modal fade' id='candidateModall" + newCan._id + "' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel'><div class='modal-dialog' role='document'><div class='modal-content'><div class='modal-header'><button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button><h4 class='modal-title' id='exampleModalLabel'>Notes on Candidate</h4></div><div class='modal-body'><form><div class='form-group'><textarea data-reqid='" + $canTxt.attr('data-reqid') + "' data-canid='" + newCan._id + "' class='form-control candidateNote' id='message-text'></textarea></div></form></div></div></div></div><p class='processName newProcessName'>" + newCan.name + "</p><select data-reqid='" + $canTxt.attr('data-reqid') + "'data-canid='" + newCan._id + "'class='processSelect'><option value=''>--- Select ---</option><option value='1'>Waiting on resume/availability</option><option value='2'>Scheduled for Phone screen</option><option value='3'>Sent technical test/questionnaire</option><option value='4'>Waiting on response from Hiring Manager</option><option value='5'>Scheduled to speak with Hiring Manager</option><option value='6'>Waiting on availability for onsite</option><option value='7'>Working on scheduling for onsite</option><option value='8'>Scheduled for Onsite</option><option value='9'>Waiting on feedback</option><option value='10'>Extended Offer</option><option value='11'>Out of Process</option></select></div>");
             }
         });
        }  
     });
     
-    // IN PROCESS DROPDOWN EDIT EVENT FOR NEW CANDIDATES
-    $newCan.delegate(".processSelect", "change", function() {
-        var drop = {process: $(this).val()};
-        
-        $.ajax({
-            type: "PUT",
-            url: "/reqs/" + $(this).attr('data-reqid') + "/candidates/" + $(this).attr('data-canid'),
-            data: drop,
-            success: function(updatedProcess) {
-                
-            }
-        });
-    });
-    
     // IN PROCESS MODALL EDIT EVENT
     $(".processPanelBody").delegate(".candidateNote", "input", function() {
-      
         var data = {note: $(this).val()}
         $.ajax({
             type: "PUT",
@@ -274,13 +280,36 @@ $(function(){
         });
     });
     
-    $(".processPanelBody").delegate(".processSelect", "change", function() {
-        
-        if($(this).val() === "11") {
-             $(this).prev("p").css("color", "#d8242a");
-        } else {
-             $(this).prev("p").css("color", "black");
+    // ==================== TODO AJAX CALLS ======================
+    $todoInput.keypress(function(e) {
+        if(e.which === 13) {
+            var todo = {todo: $todoInput.val()}
+            var $todoInputVal = $todoInput.val();
+            $todoInput.val("");
+            
+            $.ajax({
+                type: "PUT",
+                url: "/todo",
+                data: todo,
+                success: function(updatedUser) {
+                    var todoArray = updatedUser.todos;
+                    console.log(updatedUser);
+                    $todoUl.append("<li class='todoLi' data-todoid='" + updatedUser.todos[todoArray.length - 1]._id + "'>" + $todoInputVal + "</li>");
+                }
+            });
         }
+    });
+    
+    $("#todoUl").delegate(".todoLi", "click", function() {
+        var $this = $(this);
+        
+        $.ajax({
+            type: "Delete",
+            url: "/todo/" + $(this).attr("data-todoid"),
+            success: function(updatedUser) {
+                $this.closest("li").css("text-decoration", "line-through").fadeOut(800);
+            }
+        });
     });
 });
 

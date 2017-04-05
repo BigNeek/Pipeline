@@ -17,7 +17,8 @@ var indexRoutes = require("./routes/index"),
     reqRoutes = require("./routes/reqs"),
     candidateRoutes = require("./routes/candidates"),
     processRoutes = require("./routes/process"),
-    archiveRoutes = require("./routes/archive");
+    archiveRoutes = require("./routes/archive"),
+    todoRoutes = require("./routes/todo");
     
 var url = process.env.DATABASEURL || "mongodb://localhost/pipeline"
     
@@ -32,6 +33,7 @@ app.use(flash());
 // PASSPORT CONFIGURATION
 app.use(require("express-session")({
     secret: "that dude neek is the man",
+    cookie: { maxAge: 60000000 },
     resave: false,
     saveUninitialized:false
 }));
@@ -58,6 +60,7 @@ app.use(candidateRoutes);
 app.use(reqRoutes);
 app.use(processRoutes);
 app.use(archiveRoutes);
+app.use(todoRoutes);
 
 app.listen(process.env.PORT, process.env.IP, function() {
     console.log("We're online!!!")

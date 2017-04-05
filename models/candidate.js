@@ -2,8 +2,8 @@ var mongoose = require("mongoose");
 
 var candidateSchema = new mongoose.Schema({
     name: String,
-    contact2: false,
-    contact3: false,
+    contact2: Boolean,
+    contact3: Boolean,
     response: String,
     process: String,
     note: String,

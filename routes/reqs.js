@@ -59,12 +59,18 @@ router.put("/reqs/:id", middleware.isLoggedIn, function(req, res) {
 
 // REQ SHOW ROUTE
 router.get("/reqs/:id", middleware.isLoggedIn, function(req, res) {
-    Requisition.findById(req.params.id).populate("candidates").exec(function(err, req) {
+    User.findById(req.user.id, function(err, user) {
         if(err) {
-            res.redirect("back")
             console.log(err);
         } else {
-            res.render("show", {req: req});
+            Requisition.findById(req.params.id).populate("candidates").exec(function(err, req) {
+                if(err) {
+                    res.redirect("back");
+                    console.log(err);
+                } else {
+                    res.render("show", {req: req, user: user});
+                }
+            });
         }
     });
 });
@@ -83,7 +89,6 @@ router.delete("/reqs/:id", middleware.isLoggedIn, function(req, res) {
                     if(err) {
                         console.log(err);
                     } else {
-                        
                     }
                 }
             );
